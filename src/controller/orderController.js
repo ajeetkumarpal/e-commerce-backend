@@ -85,7 +85,7 @@ export const changeOrderStatus = async (req, res) => {
     }
 
     
-    io.emit("orderStatusUpdated", updatedOrder);
+   
 
     res.status(200).json({
       success: true,
