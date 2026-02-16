@@ -9,6 +9,7 @@ const adminAuth = async (req, res, next) => {
         success: false,
       });
     }
+    console.log("auth");
     const token = authHeader.split(" ")[1];
 
     if (!token) {
@@ -21,6 +22,7 @@ const adminAuth = async (req, res, next) => {
     if (!decoded) {
       return res.json({ message: "invalid token", success: false });
     }
+    console.log("auth 2");
     next();
   } catch (error) {
     res.status(500).json({

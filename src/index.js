@@ -13,7 +13,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://e-commerce-frontend-tawny-eight.vercel.app",
-  "https://e-commerce-admin-first-by-me.vercel.app",
+  "https://e-commerce-admin-my.vercel.app",
   "http://localhost:5174",
   "http://localhost:5175"
 ];
@@ -24,6 +24,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
