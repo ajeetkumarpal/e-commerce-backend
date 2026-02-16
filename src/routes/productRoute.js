@@ -32,7 +32,8 @@ productRouter.post(
   ]),
   addProduct,
 );
-productRouter.delete("/remove/:id", adminAuth, removeProduct);
+// productRouter.delete("/remove/:id", adminAuth, removeProduct);
+productRouter.delete("/remove/:id", removeProduct);
 productRouter.post("/single", singleProduct);
 productRouter.get("/list", listProduct);
 
