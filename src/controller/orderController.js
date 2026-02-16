@@ -65,16 +65,61 @@ export const removeOrder = async (req, res) => {
 };
 
 
+// export const changeOrderStatus = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { status } = req.body;
+//     console.log("id in backend", id);
+
+//     const updatedOrder = await order.findByIdAndUpdate(
+//       id,
+//       { deliveryStatus: status },
+//       { new: true },
+//     );
+
+//     if (!updatedOrder) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Order not found",
+//       });
+//     }
+
+    
+   
+
+//     res.status(200).json({
+//       success: true,
+//       data: updatedOrder,
+//       message: "Order status updated successfully",
+//     });
+//   } catch (error) {
+//     console.log("Error in change order status:", error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Server error",
+//     });
+//   }
+// };
 export const changeOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
+
     console.log("id in backend", id);
 
+    // Validate ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid order ID",
+      });
+    }
+
+    // Update order
     const updatedOrder = await order.findByIdAndUpdate(
       id,
       { deliveryStatus: status },
-      { new: true },
+      { new: true }
     );
 
     if (!updatedOrder) {
@@ -83,9 +128,6 @@ export const changeOrderStatus = async (req, res) => {
         message: "Order not found",
       });
     }
-
-    
-   
 
     res.status(200).json({
       success: true,
@@ -97,6 +139,7 @@ export const changeOrderStatus = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Server error",
+      error: error.message,
     });
   }
 };
