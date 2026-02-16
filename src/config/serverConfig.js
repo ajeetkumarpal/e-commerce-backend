@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const PORT=process.env.PORT;
+const PORT=process.env.PORT || 4000;
 const MONGODB_URL=process.env.MONGODB_URL;
 
 const CLOUDINARY_API_KEY=process.env.CLOUDINARY_API_KEY;

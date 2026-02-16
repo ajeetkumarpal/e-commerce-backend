@@ -1,5 +1,5 @@
 import order from "../schema/orderSchema.js";
-import { io } from "../index.js";
+
 
 export const placeOrder = async (req, res) => {
   try {
@@ -63,7 +63,6 @@ export const removeOrder = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
-
 
 
 export const changeOrderStatus = async (req, res) => {
