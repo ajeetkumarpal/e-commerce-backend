@@ -31,19 +31,19 @@ export const paymentOder = async (req, res) => {
       },
     };
 
-    // create order in Razorpay
+   
     const response = await razorpayInstance.orders.create(options);
 
-    // send required data to frontend
+   
     return res.status(200).json({
       success: true,
 
-      key: ROJARPAY_API_KEY, // frontend ke liye REQUIRED
+      key: ROJARPAY_API_KEY, 
       order_id: response.id,
       amount: response.amount,
       currency: response.currency,
 
-      // optional full data
+      
       data: response,
     });
   } catch (error) {
@@ -68,7 +68,7 @@ export const verifypayment = async (req, res) => {
       });
     }
 
-    // Step 1: Generate expected signature
+   
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
     const expectedSignature = crypto
@@ -76,9 +76,9 @@ export const verifypayment = async (req, res) => {
       .update(body)
       .digest("hex");
 
-    // Step 2: Compare signature
+    
     if (expectedSignature === razorpay_signature) {
-      // ✅ Payment verified
+
 
       return res.status(200).json({
         success: true,

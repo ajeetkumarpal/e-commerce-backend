@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import order from "../schema/orderSchema.js";
+
 
 
 export const placeOrder = async (req, res) => {
@@ -65,16 +67,29 @@ export const removeOrder = async (req, res) => {
 };
 
 
-// export const changeOrderStatus = async (req, res) => {
+
+
+    
+//   export const changeOrderStatus = async (req, res) => {
+//     console.log("hhh")
 //   try {
-//     const { id } = req.params;
-//     const { status } = req.body;
-//     console.log("id in backend", id);
+    
+//     const { statusIs,id } = req.body;
+
+//     console.log("id in backender:", id);
+//     console.log("status in backend:", statusIs);
+
+//     if (!mongoose.Types.ObjectId.isValid(id)) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Invalid order ID",
+//       });
+//     }
 
 //     const updatedOrder = await order.findByIdAndUpdate(
 //       id,
-//       { deliveryStatus: status },
-//       { new: true },
+//       { deliveryStatus: statusIs },
+//       { new: true }
 //     );
 
 //     if (!updatedOrder) {
@@ -84,8 +99,7 @@ export const removeOrder = async (req, res) => {
 //       });
 //     }
 
-    
-   
+//     console.log("Updated order:", updatedOrder);
 
 //     res.status(200).json({
 //       success: true,
@@ -93,49 +107,63 @@ export const removeOrder = async (req, res) => {
 //       message: "Order status updated successfully",
 //     });
 //   } catch (error) {
-//     console.log("Error in change order status:", error);
+//     console.error("Error in change order status:", error);
 //     res.status(500).json({
 //       success: false,
 //       message: "Server error",
+//       error: error.message,
 //     });
 //   }
-// };
+// }; 
+
+
 export const changeOrderStatus = async (req, res) => {
+  console.log("=== CHANGE ORDER STATUS HIT ===");
+  console.log("Request method:", req.method);
+  console.log("Request URL:", req.originalUrl);
+  console.log("Request base URL:", req.baseUrl);
+  console.log("Request path:", req.path);
+  console.log("Full request body:", req.body);
+  console.log("Request headers:", req.headers);
+  
   try {
-    const { id } = req.params;
-    const { status } = req.body;
+    const { statusIs, id } = req.body;
 
-    console.log("id in backend", id);
+    console.log("Extracted - id in backender:", id);
+    console.log("Extracted - status in backend:", statusIs);
+    console.log("ID type:", typeof id);
+    console.log("ID length:", id?.length);
 
-    // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ID format");
       return res.status(400).json({
         success: false,
         message: "Invalid order ID",
       });
     }
 
-    // Update order
     const updatedOrder = await order.findByIdAndUpdate(
       id,
-      { deliveryStatus: status },
+      { deliveryStatus: statusIs },
       { new: true }
     );
 
     if (!updatedOrder) {
+      console.log("Order not found with ID:", id);
       return res.status(404).json({
         success: false,
         message: "Order not found",
       });
     }
 
+    console.log("Updated order:", updatedOrder);
     res.status(200).json({
       success: true,
       data: updatedOrder,
       message: "Order status updated successfully",
     });
   } catch (error) {
-    console.log("Error in change order status:", error);
+    console.error("Error in change order status:", error);
     res.status(500).json({
       success: false,
       message: "Server error",

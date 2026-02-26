@@ -11,6 +11,6 @@ const orderRouter = express.Router();
 orderRouter.post("/place", placeOrder);
 orderRouter.get("/list", getUserCart);
 orderRouter.delete("/:id", removeOrder);
-orderRouter.put("/update/:id", changeOrderStatus);
+orderRouter.put("/update", changeOrderStatus);
 
 export default orderRouter;
