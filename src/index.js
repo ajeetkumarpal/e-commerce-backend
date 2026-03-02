@@ -13,7 +13,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://e-commerce-frontend-tawny-eight.vercel.app",
-  "https://e-commerce-admin-my.vercel.app",
+  "https://e-commerces-admin-delta.vercel.app",
   "http://localhost:5174",
   "http://localhost:5175"
 ];
